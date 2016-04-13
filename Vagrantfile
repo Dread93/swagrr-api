@@ -44,7 +44,6 @@ $script = <<SCRIPT
 
   install PostgreSQL postgresql postgresql-contrib libpq-dev
   sudo -u postgres createuser --superuser vagrant
-  sudo -u postgres createdb vagrant
   sudo -u postgres createdb -O vagrant activerecord_unittest
   sudo -u postgres createdb -O vagrant activerecord_unittest2
 
