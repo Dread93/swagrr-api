@@ -1,24 +1,23 @@
-## README
+# swagrr API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails 5 API for React Hack Night (orlando devs). More specifications to come.
 
-Things you may want to cover:
+## Dev Setup
 
-* Ruby version
+* `git clone https://github.com/lrosa007/swagrr-api.git`
 
-* System dependencies
+* `cd swagrr-api`
 
-* Configuration
+* `vagrant up`
 
-* Database creation
+* `vagrant ssh`
 
-* Database initialization
+* `cd /srv/swagrr-api`
 
-* How to run the test suite
+* `bundle`
 
-* Services (job queues, cache servers, search engines, etc.)
+* `rails db:etc` (etc => create, migrate, then seed)
 
-* Deployment instructions
+* `rails s`
 
-* ...
+* Check out the back-end [here](http://33.33.33.32:3000)
