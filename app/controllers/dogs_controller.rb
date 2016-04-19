@@ -14,8 +14,8 @@ class DogsController < ApplicationController
     render json: current_user.dogs
   end
 
-  # GET /my_dogs
-  def current_pup
+  # GET /current_dog
+  def current_dog
     render json: current_dog
   end
 
@@ -66,7 +66,7 @@ class DogsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
-      @dog = Dog.find(params[:handle])
+      @dog = Dog.find_by_handle(params[:handle])
     end
 
     # Only allow a trusted parameter "white list" through.

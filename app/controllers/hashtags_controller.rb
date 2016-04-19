@@ -17,7 +17,7 @@ class HashtagsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hashtag
-      @hashtag = Hashtag.find(params[:name])
+      @hashtag = Hashtag.find_by_name(params[:name])
     end
 
     # Only allow a trusted parameter "white list" through.
