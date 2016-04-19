@@ -35,18 +35,25 @@ class Post < ApplicationRecord
     self.dogs = parsed_mentions
   end
 
-  def parsed_hashtags
+  def parsed_mentions
     parsed_mentions = []
     mention_array = scan_for_mentions(caption)
     mention_array.each do |mention|
       parsed_mentions << Dogss.find_by_name(mention[1])
     end
+    if comments.present?
+      parsed_mentions + comments.map(&:get_mentions).flatten
+    end
     parsed_mentions
   end
 
-  def scan_for_hashtags(words)
+  def scan_for_mentions(words)
     reg = words.scan(Dog::HANDLE_REGEX)
     reg.uniq!
     reg
+  end
+
+  def update_comment_mentions comment
+    self.dogs << comment.get_mentions
   end
 end

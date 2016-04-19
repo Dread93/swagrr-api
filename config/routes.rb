@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   resources :breeds, only:[:index, :show]
-  resources :feed, only:[:index]
-  resources :hashtags, param: :name, only:[:index, :show]
   resources :dogs, param: :handle do
     collection do
       get :my_dogs
@@ -15,6 +13,9 @@ Rails.application.routes.draw do
       resources :comments, only:[:create, :destroy, :update]
     end
   end
+  resources :feed, only:[:index]
+  resources :hashtags, param: :name, only:[:index, :show]
+  resources :news, only:[:index]
   mount_devise_token_auth_for 'User', at: 'auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

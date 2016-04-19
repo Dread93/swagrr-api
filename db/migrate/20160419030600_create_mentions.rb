@@ -8,5 +8,6 @@ class CreateMentions < ActiveRecord::Migration[5.0]
     end
     add_index :mentions, :post_id
     add_index :mentions, :dog_id
+    add_index :mentions, [:post_id, :dog_id], unique: true
   end
 end
