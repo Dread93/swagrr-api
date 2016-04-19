@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  # before_action :set_s3_direct_post, only: [:new, :edit, :create, :update]
 
   # GET /posts
   def index
@@ -17,6 +18,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
+    @post.image_url = @s3_direct_post.url
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -52,6 +54,10 @@ class PostsController < ApplicationController
     def can_edit?
       current_dog.posts.include? @post
     end
+
+    # def set_s3_direct_post
+    #   @s3_direct_post = S3_BUCKET.presigned_post(key: "posts/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+    # end
 
     # Only allow a trusted parameter "white list" through.
     def post_params

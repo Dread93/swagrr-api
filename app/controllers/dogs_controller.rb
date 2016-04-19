@@ -1,6 +1,7 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  # before_action :set_s3_direct_post, only: [:new, :edit, :create, :update]
 
   # GET /dogs
   def index
@@ -67,6 +68,14 @@ class DogsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
       @dog = Dog.find_by_handle(params[:handle])
+    end
+
+    # def set_s3_direct_post
+    #   @s3_direct_post = S3_BUCKET.presigned_post(key: "avatars/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+    # end
+
+    def can_edit?
+      current_dog == @dog
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -1,4 +1,6 @@
 class Dog < ApplicationRecord
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "https://s-media-cache-ak0.pinimg.com/236x/56/ba/94/56ba94f766b05ac067d89e4a2d364c63.jpg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   belongs_to :user
   belongs_to :breed
   has_many :posts, dependent: :destroy

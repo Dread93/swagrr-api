@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ""
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   belongs_to :dog
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -7,7 +9,7 @@ class Post < ApplicationRecord
   has_many :mentions, dependent: :destroy
   has_many :dogs, through: :mentions
   validates :dog, presence: true
-  validates :image_url, presence: true
+  # validates :image_url, presence: true
   validates :caption, length: { maximum: 500 }
   before_save :update_hashtags
   before_save :update_mentions

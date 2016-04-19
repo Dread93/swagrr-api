@@ -10,6 +10,9 @@ gem 'rack-cors'
 gem 'devise', '~> 4.0.0.rc2'
 gem 'devise_token_auth'
 gem 'active_model_serializers', '~> 0.10.0.rc5'
+# Not yet, maybe in prod
+# gem 'aws-sdk', '~> 2'
+gem "paperclip", "~> 5.0.0.beta1"
 
 group :development, :test do
   gem 'byebug'
