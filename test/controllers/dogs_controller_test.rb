@@ -12,7 +12,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create dog" do
     assert_difference('Dog.count') do
-      post dogs_url, params: { dog: { avatar_url: @dog.avatar_url, bio: @dog.bio, breed_id: @dog.breed_id, name: @dog.name, sex: @dog.sex, user_id: @dog.user_id, website: @dog.website } }
+      post dogs_url, params: { dog: { avatar_url: @dog.avatar_url, bio: @dog.bio, breed_id: @dog.breed_id, handle: @dog.handle, name: @dog.name, sex: @dog.sex, user_id: @dog.user_id, website: @dog.website } }
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update dog" do
-    patch dog_url(@dog), params: { dog: { avatar_url: @dog.avatar_url, bio: @dog.bio, breed_id: @dog.breed_id, name: @dog.name, sex: @dog.sex, user_id: @dog.user_id, website: @dog.website } }
+    patch dog_url(@dog), params: { dog: { avatar_url: @dog.avatar_url, bio: @dog.bio, breed_id: @dog.breed_id, handle: @dog.handle, name: @dog.name, sex: @dog.sex, user_id: @dog.user_id, website: @dog.website } }
     assert_response 200
   end
 

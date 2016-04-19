@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  handle: MyString
   user: one
   breed: one
   avatar_url: MyString
@@ -10,6 +11,7 @@ one:
   website: MyString
 
 two:
+  handle: MyString
   user: two
   breed: two
   avatar_url: MyString
