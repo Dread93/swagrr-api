@@ -6,7 +6,7 @@ class CreateDogs < ActiveRecord::Migration[5.0]
       t.belongs_to :breed, foreign_key: true
       t.string :avatar_url
       t.string :name
-      t.string :bio
+      t.text :bio
       t.integer :sex
       t.string :website
 

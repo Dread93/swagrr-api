@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hashtags
   resources :dogs
   resources :dogs do
     resources :posts do

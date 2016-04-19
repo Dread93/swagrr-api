@@ -1,24 +1,12 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
-
-  # GET /comments
-  def index
-    @comments = Comment.all
-
-    render json: @comments
-  end
-
-  # GET /comments/1
-  def show
-    render json: @comment
-  end
+  before_action :set_comment, only: [:update, :destroy]
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    @comment = current_dog.comments.new(comment_params)
 
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render json: @comment, status: :created
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -26,7 +14,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1
   def update
-    if @comment.update(comment_params)
+    if can_edit? && @comment.update(comment_params)
       render json: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -35,7 +23,11 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    @comment.destroy
+    if can_edit? && @comment.update(comment_params)
+      @comment.destroy
+    else
+      render json: { message: "Not your comment, dog" }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -44,8 +36,12 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def can_edit?
+      current_dog.comments.include? @comment
+    end
+
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:body, :post_id, :dog_id)
+      params.require(:comment).permit(:body, :post_id)
     end
 end

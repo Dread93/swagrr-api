@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /posts
   def index
@@ -26,7 +27,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
+    if can_edit? && @post.update(post_params)
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -35,13 +36,21 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
-    @post.destroy
+    if can_edit? && @post.update(comment_params)
+      @post.destroy
+    else
+      render json: { message: "Not your post, dog" }, status: :unprocessable_entity
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def can_edit?
+      current_dog.posts.include? @post
     end
 
     # Only allow a trusted parameter "white list" through.
