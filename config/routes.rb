@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  resources :hashtags
-  resources :dogs
-  resources :dogs do
+  resources :hashtags, params: :name
+  resources :dogs, params: :handle do
     resources :posts do
       resources :comments, only:[:create, :destroy, :update]
     end

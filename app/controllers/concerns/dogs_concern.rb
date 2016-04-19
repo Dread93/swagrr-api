@@ -1,6 +1,6 @@
 module DogsConcern
   def current_dog
-    dog = Dog.where(id: params[:dog_id])
+    dog = Dog.where(id: params[:dog_handle])
     if current_user.dogs.include? dog
       return dog
     else

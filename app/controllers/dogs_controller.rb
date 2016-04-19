@@ -10,8 +10,13 @@ class DogsController < ApplicationController
   end
 
   # GET /my_dogs
-  def index
+  def my_dogs
     render json: current_user.dogs
+  end
+
+  # GET /my_dogs
+  def current_pup
+    render json: current_dog
   end
 
   # GET /dogs/1
@@ -30,7 +35,7 @@ class DogsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /dogs/1
+  # PATCH/PUT /dogs/handle
   def update
     if @dog.update(dog_params)
       render json: @dog
@@ -39,16 +44,16 @@ class DogsController < ApplicationController
     end
   end
 
-  # GET /dogs/1/follow
+  # GET /dogs/handle/follow
   def follow
-    unless following?(@dog.id)
+    unless following?(@dog.handle)
       current_dog.follow @dog
     end
   end
 
-  # GET /dogs/1/unfollow
+  # GET /dogs/handle/unfollow
   def unfollow
-    if following?(@dog.id)
+    if following?(@dog.handle)
       current_dog.unfollow @dog
     end
   end
@@ -61,11 +66,11 @@ class DogsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
-      @dog = Dog.find(params[:id])
+      @dog = Dog.find(params[:handle])
     end
 
     # Only allow a trusted parameter "white list" through.
     def dog_params
-      params.require(:dog).permit(:handle, :user_id, :breed_id, :avatar_url, :name, :bio, :sex, :website)
+      params.require(:dog).permit(:handle, :breed_id, :avatar_url, :name, :bio, :sex, :website)
     end
 end
