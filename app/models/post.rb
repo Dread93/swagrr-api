@@ -1,10 +1,10 @@
 class Post < ApplicationRecord
   belongs_to :dog
-  has_many :likes
-  has_many :comments
-  has_many :post_hastags
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :post_hastags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
-  has_many :mentions
+  has_many :mentions, dependent: :destroy
   has_many :dogs, through: :mentions
   validates :dog, presence: true
   validates :image_url, presence: true

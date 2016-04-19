@@ -1,8 +1,8 @@
 class Dog < ApplicationRecord
   belongs_to :user
   belongs_to :breed
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
@@ -12,11 +12,12 @@ class Dog < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followee
   has_many :followers, through: :passive_relationships
   validates :handle, presence: true, length: { in: 2..15 },
-                     format: { with: HANDLE_REGEX }
+                     format: { with: /[[A-Za-z]+[A-Za-z0-9_]*$]/ },
+                     uniqueness: true
   validates :bio, length: { maximum: 500 }
   validates :user, presence: true
 
-  HANDLE_REGEX = /(?<=^|(?<=[^a-zA-Z0-9\-_\.]))@([A-Za-z]+[A-Za-z0-9]+)/
+  HANDLE_REGEX = /(?<=^|(?<=[^a-zA-Z0-9\-_\.]))@([[A-Za-z]+[A-Za-z0-9_]*$]{2,15})/
 
   # Safest way to do this I guess
   def handle=(dog_handle)
