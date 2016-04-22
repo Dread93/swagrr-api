@@ -1,6 +1,6 @@
 # swagrr API
 
-Rails 5 API for React Hack Night (orlando devs). More specifications to come.
+Rails API for React Hack Night (orlando devs). More specifications to come.
 
 ## Dev Setup
 
